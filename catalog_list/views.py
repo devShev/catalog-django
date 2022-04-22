@@ -55,5 +55,5 @@ class TypeView(DataMixin, ListView):
         context = super().get_context_data(**kwargs)
         type = ItemType.objects.get(pk=self.kwargs['ad_id'])
 
-        c_def = self.get_user_context(title=str(type.type), type_selected=type.pk)
+        c_def = self.get_user_context(title=str(type.type), type_selected=type.pk, cuurent_menu='home')
         return dict(list(context.items()) + list(c_def.items()))
