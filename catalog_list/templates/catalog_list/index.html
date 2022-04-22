@@ -1,18 +1,51 @@
 {% extends 'catalog_list/base.html' %}
 
 {% block content%}
-    <div class="row py-3">
-        <div class="col" id="main">
+    <div class="row my-3">
+        <div class="col-8" id="main">
             {% for ad in ads %}
-                <h1>{{ ad.title }}</h1>
+                <div class="card mb-3" style="">
+                  <div class="row m-3 g-0">
+                    <div class="col-md-4 d-flex align-content-center">
+                      <img src="{{ ad.photo.url }}" class="img-fluid rounded-start rounded" alt="Item image">
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                          <small class="card-subtitle text-muted">{{ ad.type }}</small>
+                        <h4 class="card-title">{{ ad.title }}</h4>
+                        <p class="card-text">
+                            {% autoescape on %}
+                                {{ ad.content|linebreaks|truncatechars:100 }}
+                            {% endautoescape %}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="card-footer text-muted d-flex justify-content-between">
+                        <div class="text-start">
+                            <a class="text-reset" href="{{ ad.author.get_absolute_url }}">{{ ad.author }}</a>
+                        </div>
+                        <div class="text-end">
+                            <span >{{ ad.publication_date|date:"d.m.Y" }}</span>
+                        </div>
+                    </div>
+                </div>
             {% endfor %}
-
         </div>
-    <div class="col-3 order-1" id="sticky-sidebar">
-            <div class="sticky-top">
-                <div>1</div>
-                <div>2</div>
-                <div>3</div>
+        <div class="col-3 p-3 ms-3" id="sticky-sidebar">
+            <div class="sticky-top d-flex flex-column bd-highlight mt-3 text-end">
+                {% if type_selected == 0 %}
+                    <span class="link-primary text-danger">Все объявления</span>
+                {% else %}
+                    <a href="{% url 'home' %}" class="link-primary">Все объявления</a>
+                {% endif %}
+                {% for type in types %}
+                    {% if type.pk == type_selected %}
+                        <span class="link-primary text-danger">{{ type }}</span>
+                    {% else %}
+                        <a href="{{ type.get_absolute_url }}" class="link-primary">{{ type }}</a>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>

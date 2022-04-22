@@ -12,8 +12,7 @@ class CatalogHome(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        types = ItemType.objects.all()
-        context['types'] = types
+
         c_def = self.get_user_context(title='Каталог', cuurent_menu='home')
         return dict(list(context.items()) + list(c_def.items()))
 
@@ -40,4 +39,21 @@ class Rules(DataMixin, TemplateView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(title='Правила площадки', cuurent_menu='rules')
+        return dict(list(context.items()) + list(c_def.items()))
+
+
+class TypeView(DataMixin, ListView):
+    model = Ad
+    template_name = 'catalog_list/index.html'
+    context_object_name = 'ads'
+    allow_empty = False
+
+    def get_queryset(self):
+        return Ad.objects.filter(type__id=self.kwargs['ad_id']).select_related('type', 'author')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        type = ItemType.objects.get(pk=self.kwargs['ad_id'])
+
+        c_def = self.get_user_context(title=str(type.type), type_selected=type.pk)
         return dict(list(context.items()) + list(c_def.items()))
