@@ -18,7 +18,6 @@
                                 {{ ad.content|linebreaks|truncatechars:100 }}
                             {% endautoescape %}
                         </p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
                       </div>
                     </div>
                   </div>
@@ -35,8 +34,17 @@
         </div>
         <div class="col-3 p-3 ms-3" id="sticky-sidebar">
             <div class="sticky-top d-flex flex-column bd-highlight mt-3 text-end">
+                {% if type_selected == 0 %}
+                    <span class="link-primary text-danger">Все объявления</span>
+                {% else %}
+                    <a href="{% url 'home' %}" class="link-primary">Все объявления</a>
+                {% endif %}
                 {% for type in types %}
-                <a href="#" class="link-primary">{{ type }}</a>
+                    {% if type.pk == type_selected %}
+                        <span class="link-primary text-danger">{{ type }}</span>
+                    {% else %}
+                        <a href="{{ type.get_absolute_url }}" class="link-primary">{{ type }}</a>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>
