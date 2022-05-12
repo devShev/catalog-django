@@ -9,4 +9,7 @@ urlpatterns = [
     path('contact/', Contact.as_view(), name='contact'),
     path('rules/', Rules.as_view(), name='rules'),
     path('type/<int:ad_id>/', TypeView.as_view(), name='type'),
+    path('register/', RegisterUser.as_view(), name='register'),
+    path('login/', LoginUser.as_view(), name='login'),
+    path('logout/', logout_user, name='logout'),
 ]
