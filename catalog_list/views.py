@@ -34,7 +34,8 @@ class Contact(DataMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='Связь с нами', cuurent_menu='contact')
+
+        c_def = self.get_user_context(get_types=False, title='Связь с нами', cuurent_menu='contact')
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -43,7 +44,7 @@ class Rules(DataMixin, TemplateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(title='Правила площадки', cuurent_menu='rules')
+        c_def = self.get_user_context(get_types=False, title='Правила площадки', cuurent_menu='rules')
         return dict(list(context.items()) + list(c_def.items()))
 
 
@@ -71,8 +72,10 @@ class RegisterUser(DataMixin, CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Регистрация'
-        return dict(list(context.items()))
+
+        c_def = self.get_user_context(get_types=False, get_menu=False, title='Регистрация')
+
+        return dict(list(context.items()) + list(c_def.items()))
 
     def form_valid(self, form):
         user = form.save()
@@ -88,7 +91,9 @@ class LoginUser(DataMixin, LoginView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        return dict(list(context.items()))
+        c_def = self.get_user_context(get_types=False, get_menu=False, title='Авторизация')
+
+        return dict(list(context.items()) + list(c_def.items()))
 
     def get_success_url(self):
         return reverse_lazy('home')

@@ -10,12 +10,17 @@ menu_list = [
 
 
 class DataMixin:
-    def get_user_context(self, **kwargs):
+    def get_user_context(self, get_types=True, get_menu=True, **kwargs):
         context = kwargs
-        types = ItemType.objects.all()
-        context['types'] = types
 
-        context['menu'] = menu_list.copy()
+        if get_types:
+            types = ItemType.objects.all()
+            context['types'] = types
+
+        if get_menu:
+            context['menu'] = menu_list.copy()
+
         if 'type_selected' not in context:
             context['type_selected'] = 0
+
         return context
