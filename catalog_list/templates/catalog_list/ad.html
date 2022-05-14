@@ -1,0 +1,32 @@
+{% extends 'catalog_list/base.html' %}
+
+{% block content %}
+    <div class="d-flex flex-column align-items-center mt-4 text-center">
+
+        <!-- Заголовок -->
+        <h1 class="">{{ ad.title }}</h1>
+        <small class="text-muted mb-4">{{ ad.type }}</small>
+        <!-- Фото (если нет - заглушка) -->
+        {% if not ad.photo %}
+            <img class="w-75 img-fluid rounded-start rounded" src="https://fukuda-asia.com/wp-content/uploads/2016/04/placeholder.jpg" alt="Фото отсутствует">
+        {% else %}
+            <img class="w-75 img-fluid rounded-start rounded" src="{{ ad.photo.url }}" alt="{{ ad.title }}">
+        {% endif %}
+
+        <!-- Контент -->
+        <div class="col-10 text-justify text-break mt-4 text-start">
+            <p class="fs-5">
+                <strong>Описание: </strong>{{ ad.content }}
+            </p>
+        </div>
+
+
+        <!-- Автор -->
+        <div class="align-self-end text-end">
+            <p class="mb-1">Автор: <strong>{{ ad.author }}</strong></p>
+            <p class="mt-1 text-muted">Дата публикации: {{ ad.publication_date|date:"d.m.Y" }}</p>
+        </div>
+
+    </div>
+
+{% endblock %}

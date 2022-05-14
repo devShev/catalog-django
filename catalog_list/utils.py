@@ -6,16 +6,22 @@ menu_list = [
     {'title': 'Каталог', 'url_name': 'home'},
     {'title': 'Обратная связь', 'url_name': 'contact'},
     {'title': 'Правила', 'url_name': 'rules'},
+    {'title': 'Создать объявление', 'url_name': 'create'},
 ]
 
 
 class DataMixin:
-    def get_user_context(self, **kwargs):
+    def get_user_context(self, get_types=True, get_menu=True, **kwargs):
         context = kwargs
-        types = ItemType.objects.all()
-        context['types'] = types
 
-        context['menu'] = menu_list.copy()
+        if get_types:
+            types = ItemType.objects.all()
+            context['types'] = types
+
+        if get_menu:
+            context['menu'] = menu_list.copy()
+
         if 'type_selected' not in context:
             context['type_selected'] = 0
+
         return context

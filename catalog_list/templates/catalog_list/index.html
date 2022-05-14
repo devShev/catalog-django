@@ -4,15 +4,21 @@
     <div class="row my-3">
         <div class="col-8" id="main">
             {% for ad in ads %}
-                <div class="card mb-3" style="">
+                <div class="card mb-3">
                   <div class="row m-3 g-0">
                     <div class="col-md-4 d-flex align-content-center">
-                      <img src="{{ ad.photo.url }}" class="img-fluid rounded-start rounded" alt="Item image">
+                        <a href="{{ ad.get_absolute_url }}">
+                            {% if ad.photo %}
+                                <img src="{{ ad.photo.url }}" class="img-fluid rounded-start rounded" alt="{{ ad.title }}">
+                            {% else %}
+                                <img src="https://fukuda-asia.com/wp-content/uploads/2016/04/placeholder.jpg" alt="Фото отсутствует" class="img-fluid rounded-start rounded">
+                            {% endif %}
+                        </a>
                     </div>
                     <div class="col-md-8">
                       <div class="card-body">
                           <small class="card-subtitle text-muted">{{ ad.type }}</small>
-                        <h4 class="card-title">{{ ad.title }}</h4>
+                        <h4 class="card-title"><a class="text-decoration-none text-dark" href="{{ ad.get_absolute_url }}">{{ ad.title }}</a></h4>
                         <p class="card-text">
                             {% autoescape on %}
                                 {{ ad.content|linebreaks|truncatechars:100 }}
@@ -32,8 +38,8 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="col-3 p-3 ms-3" id="sticky-sidebar">
-            <div class="sticky-top d-flex flex-column bd-highlight mt-3 text-end">
+        <div class="col-3 p-3 ms-3">
+            <div class="d-flex flex-column bd-highlight mt-3 text-end">
                 {% if type_selected == 0 %}
                     <span class="link-primary text-danger">Все объявления</span>
                 {% else %}
