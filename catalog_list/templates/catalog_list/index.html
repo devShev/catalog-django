@@ -2,7 +2,7 @@
 
 {% block content%}
     <div class="row my-3">
-        <div class="col-8" id="main">
+        <div class="col-lg-8" id="main">
             {% for ad in ads %}
                 <div class="card mb-3">
                   <div class="row m-3 g-0">
@@ -38,7 +38,7 @@
                 </div>
             {% endfor %}
         </div>
-        <div class="col-3 p-3 ms-3">
+        <div class="col-lg-4 p-3">
             <div class="d-flex flex-column bd-highlight mt-3 text-end">
                 {% if type_selected == 0 %}
                     <span class="link-primary text-danger">Все объявления</span>
