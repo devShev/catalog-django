@@ -32,7 +32,7 @@ class ItemType(models.Model):
         return self.type
 
     def get_absolute_url(self):
-        return reverse('type', kwargs={'ad_id': self.pk})
+        return reverse('type', kwargs={'type_id': self.pk})
 
     class Meta:
         verbose_name = 'Тип'
