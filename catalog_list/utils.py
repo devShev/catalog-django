@@ -6,6 +6,7 @@ menu_list = [
     {'title': 'Каталог', 'url_name': 'home'},
     {'title': 'Обратная связь', 'url_name': 'contact'},
     {'title': 'Правила', 'url_name': 'rules'},
+    {'title': 'Создать объявление', 'url_name': 'create'},
 ]
 
 

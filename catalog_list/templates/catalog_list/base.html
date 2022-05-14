@@ -26,7 +26,7 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 {% for option in menu %}
                     {% if cuurent_menu == option.url_name %}
-                    <li><a href="{% url option.url_name %}" class="nav-link px-2 text-secondary">{{ option.title }}</a></li>
+                    <li class="nav-link px-2 text-secondary">{{ option.title }}</li>
                     {% else %}
                     <li><a href="{% url option.url_name %}" class="nav-link px-2 text-white">{{ option.title }}</a></li>
                     {% endif %}
@@ -43,7 +43,7 @@
             </div>
             {% else %}
             <div class="text-end">
-              <span class="m-3">{{ user.username }}</span>
+              <span class="mx-3">{{ user.username }}</span>
               <a href="{% url 'logout' %}" type="button" class="btn btn-warning">Выйти</a>
             </div>
             {% endif %}
