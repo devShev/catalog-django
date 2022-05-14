@@ -55,7 +55,7 @@ class TypeView(DataMixin, ListView):
     allow_empty = False
 
     def get_queryset(self):
-        return Ad.objects.filter(type__id=self.kwargs['ad_id']).select_related('type', 'author')
+        return Ad.objects.filter(type__id=self.kwargs['ad_id'])
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
