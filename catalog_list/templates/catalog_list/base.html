@@ -17,6 +17,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
     <header class="p-3 bg-dark text-white sticky-top">
@@ -36,15 +37,38 @@
             <form action="{% url 'search' %}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get">
               <input name="q" type="search" class="form-control form-control-dark" placeholder="Поиск..." aria-label="Search" required>
             </form>
+
             {% if not request.user.is_authenticated %}
+            <button type="button" class="d-flex flex-row align-items-center btn btn-success me-3" disabled>
+                <img class="text-center align-items-center me-1" alt="" src="https://content.kufar.by/static/frontend/svg/plus.svg" height="16" width="16">
+                <span>Создать объявление</span>
+            </button>
+
             <div class="text-end">
               <a href="{% url 'login' %}" type="button" class="btn btn-outline-light me-2">Войти</a>
               <a href="{% url 'register' %}" type="button" class="btn btn-warning">Регистрация</a>
             </div>
             {% else %}
-            <div class="text-end">
-              <span class="mx-3">{{ user.username }}</span>
-              <a href="{% url 'logout' %}" type="button" class="btn btn-warning">Выйти</a>
+            <a href="{% url 'create' %}" type="button" class="d-flex flex-row align-items-center btn btn-success me-3 btn-circle">
+                <img class="text-center align-items-center me-1" alt="" src="https://content.kufar.by/static/frontend/svg/plus.svg" height="16" width="16">
+                <span>Создать объявление</span>
+            </a>
+                <div class="d-flex flex-row">
+            <span class="d-flex text-center align-items-center mx-3">{{ user.username }}</span>
+            <div class="flex-shrink-0 dropdown">
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
+          </a>
+          <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
+            <li><a class="dropdown-item" href="{% url 'create' %}">Создать объявление TODO</a></li>
+            <li><a class="dropdown-item" href="#">Профиль TODO</a></li>
+            <li><a class="dropdown-item" href="#">Настройки TODO</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="{% url 'logout' %}">Выйти</a></li>
+          </ul>
+        </div>
+                </div>
+
             </div>
             {% endif %}
 
@@ -66,5 +90,8 @@
     <p class="text-center text-muted">Simple pet-project</p>
   </footer>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
 </body>
 </html>
