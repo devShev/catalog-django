@@ -1,0 +1,51 @@
+{% extends 'catalog_list/base.html' %}
+
+{% block content%}
+    <div class="row my-3">
+        {% if ads %}
+        <div class="alert alert-success w-auto ms-3 text-break" role="alert">
+            Результаты по запросу: <strong>{{ search_line }}</strong>
+        </div>
+        <div class="col-lg-12" id="main">
+            {% for ad in ads %}
+                <div class="card mb-3">
+                  <div class="row m-3 g-0">
+                    <div class="col-md-4 d-flex align-content-center">
+                        <a href="{{ ad.get_absolute_url }}">
+                            {% if ad.photo %}
+                                <img src="{{ ad.photo.url }}" class="img-fluid rounded-start rounded" alt="{{ ad.title }}">
+                            {% else %}
+                                <img src="https://fukuda-asia.com/wp-content/uploads/2016/04/placeholder.jpg" alt="Фото отсутствует" class="img-fluid rounded-start rounded">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="col-md-8">
+                      <div class="card-body">
+                          <small class="card-subtitle text-muted">{{ ad.type }}</small>
+                        <h4 class="card-title"><a class="text-decoration-none text-dark" href="{{ ad.get_absolute_url }}">{{ ad.title }}</a></h4>
+                        <p class="card-text">
+                            {% autoescape on %}
+                                {{ ad.content|linebreaks|truncatechars:250 }}
+                            {% endautoescape %}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                    <div class="card-footer text-muted d-flex justify-content-between">
+                        <div class="text-start">
+                            <a class="text-reset" href="{{ ad.author.get_absolute_url }}">{{ ad.author }}</a>
+                        </div>
+                        <div class="text-end">
+                            <span >{{ ad.publication_date|date:"d.m.Y" }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+        <div class="alert alert-danger w-auto text-break" role="alert">
+            По запросу <strong>{{ search_line }}</strong> ничего не найдено
+        </div>
+    {% endif %}
+{% endblock %}

@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, CreateView, FormView, Tem
 from django.contrib.auth import logout, login
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.db.models import Q
 
 from .forms import RegisterUserForm, LoginUserForm
 from .models import Ad, ItemType
@@ -22,13 +23,35 @@ class CatalogHome(DataMixin, ListView):
         return dict(list(context.items()) + list(user_context.items()))
 
     def get_queryset(self):
-        return Ad.objects.all().select_related('author', 'type')
+        return Ad.objects.all()
+
+
+class SearchResult(DataMixin, ListView):
+    model = Ad
+    template_name = 'catalog_list/search.html'
+    context_object_name = 'ads'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user_context = self.get_user_context(get_types=False ,title=('Поиск по запросу: ' + self.request.GET.get('q').strip()), search_line=self.request.GET.get('q').strip())
+        return dict(list(context.items()) + list(user_context.items()))
+
+    # TODO FIX EMPTY LIST
+    def get_queryset(self):
+        if not self.request.GET.get('q').strip():
+            redirect('home')
+            return
+
+        return Ad.objects.filter(
+                title__iregex=self.request.GET.get('q').strip()
+            )
 
 
 class DetailAd(DataMixin, DetailView):
     model = Ad
     template_name = 'catalog_list/ad.html'
-    pk_url_kwarg = 'ad_id' # Replace 'id' to 'ad_id'
+    pk_url_kwarg = 'ad_id'  # Replace 'id' to 'ad_id'
     context_object_name = 'ad'
 
     def get_context_data(self, **kwargs):
