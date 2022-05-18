@@ -7,6 +7,7 @@ urlpatterns = [
     path('', CatalogHome.as_view(), name='home'),
     path('ad/<int:ad_id>/', DetailAd.as_view(), name='ad'),
     path('type/<int:type_id>/', TypeView.as_view(), name='type'),
+    path('search/', SearchResult.as_view(), name='search'),
     path('create/', create, name='create'),
     path('contact/', Contact.as_view(), name='contact'),
     path('rules/', Rules.as_view(), name='rules'),
