@@ -35,7 +35,7 @@
             </ul>
 
             <form action="{% url 'search' %}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get">
-              <input name="q" type="search" class="form-control form-control-dark" placeholder="Поиск..." aria-label="Search" required>
+              <input name="q" type="search" class="form-control form-control-dark text-white bg-dark" placeholder="Поиск..." aria-label="Search" required>
             </form>
 
             {% if not request.user.is_authenticated %}
