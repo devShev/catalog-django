@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 from .models import *
 
@@ -13,9 +14,50 @@ class RegisterUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = [
+            'username',
+            'email',
+            'password1',
+            'password2',
+        ]
 
 
 class LoginUserForm(AuthenticationForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-control', 'id': 'floatingInput', 'autofocus': False}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'floatingInput', 'autofocus': False}))
+
+
+# TODO Create Form
+class CreateAdForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['type'].empty_label = 'Выберите тип товара'
+
+    class Meta:
+        model = Ad
+        fields = [
+            'title',
+            'content',
+            'photo',
+            'type',
+        ]
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'content': forms.Textarea(attrs={'class': 'form-control'}),
+            'photo': forms.FileInput(attrs={'class': 'form-control'}),
+            'type': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+    def valid_title(self):
+        title = self.cleaned_data['title']
+        if len(title) > 100:
+            raise ValidationError('Длина превышает 100 символов')
+
+        return title
+
+    def valid_content(self):
+        content = self.cleaned_data['content']
+        if len(content) > 300:
+            raise ValidationError('Длина превышает 300 символов')
+
+        return content

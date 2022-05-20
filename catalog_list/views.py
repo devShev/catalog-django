@@ -1,14 +1,13 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponse
 from django.views.generic import ListView, DetailView, CreateView, FormView, TemplateView
 from django.contrib.auth import logout, login
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.db.models import Q
 
-from .forms import RegisterUserForm, LoginUserForm
+from .forms import RegisterUserForm, LoginUserForm, CreateAdForm
 from .models import Ad, ItemType
-from .utils import DataMixin
+from .utils import DataMixin, NonLoginRequiredMixin
 
 
 class CatalogHome(DataMixin, ListView):
@@ -31,7 +30,7 @@ class SearchResult(DataMixin, ListView):
     template_name = 'catalog_list/search.html'
     context_object_name = 'ads'
 
-    def get_context_data(self, *, object_list=None, **kwargs):
+    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
         user_context = self.get_user_context(get_types=False ,title=('Поиск по запросу: ' + self.request.GET.get('q').strip()), search_line=self.request.GET.get('q').strip())
@@ -78,11 +77,21 @@ class TypeView(DataMixin, ListView):
         return dict(list(context.items()) + list(user_context.items()))
 
 
-def create(request):
-    return HttpResponse("Создание записи")
+# TODO CREATE FINAL
+class CreateAd(LoginRequiredMixin, DataMixin, CreateView):
+    form_class = CreateAdForm
+    template_name = 'catalog_list/create.html'
+    success_url = reverse_lazy('home')
+    raise_exception = True
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        user_context = self.get_user_context(get_menu=False, get_types=False, title='Создание объявления')
+        return dict(list(context.items()) + list(user_context.items()))
 
 
-# TODO
+# TODO Contact Form
 class Contact(DataMixin, TemplateView):
     template_name = 'catalog_list/contact.html'
 
@@ -93,7 +102,7 @@ class Contact(DataMixin, TemplateView):
         return dict(list(context.items()) + list(user_context.items()))
 
 
-# TODO
+# TODO Write Rules
 class Rules(DataMixin, TemplateView):
     template_name = 'catalog_list/rules.html'
 
@@ -103,7 +112,7 @@ class Rules(DataMixin, TemplateView):
         return dict(list(context.items()) + list(user_context.items()))
 
 
-class RegisterUser(DataMixin, CreateView):
+class RegisterUser(NonLoginRequiredMixin, DataMixin, CreateView):
     form_class = RegisterUserForm
     template_name = 'catalog_list/register.html'
     success_url = reverse_lazy('home')
@@ -122,7 +131,7 @@ class RegisterUser(DataMixin, CreateView):
         return redirect('home')
 
 
-class LoginUser(DataMixin, LoginView):
+class LoginUser(NonLoginRequiredMixin, DataMixin, LoginView):
     form_class = LoginUserForm
     template_name = 'catalog_list/login.html'
 
