@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.contrib.auth.mixins import AccessMixin
 
 from catalog_list.models import *
 
@@ -24,3 +24,12 @@ class DataMixin:
             context['type_selected'] = 0
 
         return context
+
+
+class NonLoginRequiredMixin(AccessMixin):
+    """Verify that the current user is not authenticated."""
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)

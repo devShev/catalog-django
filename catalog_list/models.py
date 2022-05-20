@@ -1,7 +1,5 @@
 from django.contrib.auth.models import User
 from django.db import models
-
-
 from django.urls import reverse
 
 
@@ -9,8 +7,8 @@ class Ad(models.Model):
     title = models.CharField(max_length=128, blank=False, null=False, verbose_name='Название')
     publication_date = models.DateField(auto_now_add=True, blank=False, null=False, verbose_name='Дата публикации')
     content = models.TextField(max_length=500, blank=False, null=False, verbose_name='Текст объявления')
-    photo = models.ImageField(upload_to='photos/%Y/%m/%d/', verbose_name='Фото', blank=True, null=True)
-    author = models.ForeignKey(User, on_delete=models.PROTECT, blank=False, null=False, verbose_name='Автор')
+    photo = models.ImageField(upload_to='photos/%Y/%m/%d/', blank=True, null=True, verbose_name='Фото')
+    author = models.ForeignKey(User, on_delete=models.PROTECT, blank=False, null=True, verbose_name='Автор')
     type = models.ForeignKey('ItemType', on_delete=models.PROTECT, blank=False, null=False, verbose_name='Тип')
 
     def __str__(self):

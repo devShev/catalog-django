@@ -1,0 +1,52 @@
+{%  load static %}
+{# Load the tag library #}
+{% load bootstrap5 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" type="image/png" href="{% static "favicon.ico" %}">
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+  </head>
+  <body class="text-center">
+    <div class="container d-flex flex-column justify-content-center">
+        <h1 class="mt-5">{{ title }}</h1>
+        <form class="d-flex flex-column" action="{% url 'create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        {% if form.non_field_erros %}
+            <div class="alert alert-danger align-self-start text-break" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        {% for f in form %}
+            <p class="d-flex flex-column align-items-start"><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+            {% if f.errors %}
+                <div class="alert alert-danger align-self-start text-break" role="alert">{{ f.errors }}</div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="d-flex align-items-start justify-content-center flex-column w-30">
+            <button class="btn btn-success mb-2" type="submit">Создать</button>
+            <a href="{% url 'home' %}" class="btn btn-secondary align-self-end" role="button">Назад</a>
+        </div>
+    </form>
+    </div>
+
+  </body>
+</html>
+
+
+
+
+
+
