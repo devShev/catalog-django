@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.views.generic import ListView, DetailView, CreateView, FormView, TemplateView
 from django.contrib.auth import logout, login
@@ -36,7 +37,6 @@ class SearchResult(DataMixin, ListView):
         user_context = self.get_user_context(get_types=False ,title=('Поиск по запросу: ' + self.request.GET.get('q').strip()), search_line=self.request.GET.get('q').strip())
         return dict(list(context.items()) + list(user_context.items()))
 
-    # TODO FIX EMPTY LIST
     def get_queryset(self):
         if not self.request.GET.get('q').strip():
             redirect('home')
@@ -77,7 +77,6 @@ class TypeView(DataMixin, ListView):
         return dict(list(context.items()) + list(user_context.items()))
 
 
-# TODO CREATE FINAL
 class CreateAd(LoginRequiredMixin, DataMixin, CreateView):
     form_class = CreateAdForm
     template_name = 'catalog_list/create.html'
@@ -89,6 +88,14 @@ class CreateAd(LoginRequiredMixin, DataMixin, CreateView):
 
         user_context = self.get_user_context(get_menu=False, get_types=False, title='Создание объявления')
         return dict(list(context.items()) + list(user_context.items()))
+
+    def form_valid(self, form):
+
+        ad = form.save(commit=False)
+        ad.author = User.objects.get(pk=self.request.user.pk)
+        ad.save()
+
+        return redirect('home')
 
 
 # TODO Contact Form

@@ -39,17 +39,17 @@
             </form>
 
             {% if not request.user.is_authenticated %}
-            <button type="button" class="d-flex flex-row align-items-center btn btn-success me-3" disabled>
+            <button type="button" class="d-flex flex-row align-items-center btn btn-success me-3" role="button" disabled>
                 <img class="text-center align-items-center me-1" alt="" src="https://content.kufar.by/static/frontend/svg/plus.svg" height="16" width="16">
                 <span>Создать объявление</span>
             </button>
 
             <div class="text-end">
-              <a href="{% url 'login' %}" type="button" class="btn btn-outline-light me-2">Войти</a>
-              <a href="{% url 'register' %}" type="button" class="btn btn-warning">Регистрация</a>
+              <a href="{% url 'login' %}" type="button" class="btn btn-outline-light me-2" role="button">Войти</a>
+              <a href="{% url 'register' %}" type="button" class="btn btn-warning" role="button">Регистрация</a>
             </div>
             {% else %}
-            <a href="{% url 'create' %}" type="button" class="d-flex flex-row align-items-center btn btn-success me-3 btn-circle">
+            <a href="{% url 'create' %}" type="button" class="d-flex flex-row align-items-center btn btn-success me-3 btn-circle" role="button">
                 <img class="text-center align-items-center me-1" alt="" src="https://content.kufar.by/static/frontend/svg/plus.svg" height="16" width="16">
                 <span>Создать объявление</span>
             </a>
@@ -60,7 +60,7 @@
             <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
           </a>
           <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
-            <li><a class="dropdown-item" href="{% url 'create' %}">Создать объявление TODO</a></li>
+            <li><a class="dropdown-item" href="{% url 'create' %}">Создать объявление</a></li>
             <li><a class="dropdown-item" href="#">Профиль TODO</a></li>
             <li><a class="dropdown-item" href="#">Настройки TODO</a></li>
             <li><hr class="dropdown-divider"></li>

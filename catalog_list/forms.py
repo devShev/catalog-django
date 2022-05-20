@@ -27,7 +27,6 @@ class LoginUserForm(AuthenticationForm):
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'floatingInput', 'autofocus': False}))
 
 
-# TODO Create Form
 class CreateAdForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -47,17 +46,3 @@ class CreateAdForm(forms.ModelForm):
             'photo': forms.FileInput(attrs={'class': 'form-control'}),
             'type': forms.Select(attrs={'class': 'form-select'}),
         }
-
-    def valid_title(self):
-        title = self.cleaned_data['title']
-        if len(title) > 100:
-            raise ValidationError('Длина превышает 100 символов')
-
-        return title
-
-    def valid_content(self):
-        content = self.cleaned_data['content']
-        if len(content) > 300:
-            raise ValidationError('Длина превышает 300 символов')
-
-        return content
