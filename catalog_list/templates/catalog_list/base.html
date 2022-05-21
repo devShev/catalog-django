@@ -17,7 +17,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
     <header class="p-3 bg-dark text-white sticky-top">
@@ -27,9 +26,9 @@
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 {% for option in menu %}
                     {% if cuurent_menu == option.url_name %}
-                    <li class="nav-link px-2 text-secondary">{{ option.title }}</li>
+                        <li class="nav-link px-2 text-secondary">{{ option.title }}</li>
                     {% else %}
-                    <li><a href="{% url option.url_name %}" class="nav-link px-2 text-white">{{ option.title }}</a></li>
+                        <li><a href="{% url option.url_name %}" class="nav-link px-2 text-white">{{ option.title }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
@@ -40,7 +39,7 @@
 
             {% if not request.user.is_authenticated %}
             <button type="button" class="d-flex flex-row align-items-center btn btn-success me-3" role="button" disabled>
-                <img class="text-center align-items-center me-1" alt="" src="https://content.kufar.by/static/frontend/svg/plus.svg" height="16" width="16">
+                <img class="text-center align-items-center me-1" alt="" src="{% static 'plus.svg' %}" height="16" width="16">
                 <span>Создать объявление</span>
             </button>
 
@@ -50,7 +49,7 @@
             </div>
             {% else %}
             <a href="{% url 'create' %}" type="button" class="d-flex flex-row align-items-center btn btn-success me-3 btn-circle" role="button">
-                <img class="text-center align-items-center me-1" alt="" src="https://content.kufar.by/static/frontend/svg/plus.svg" height="16" width="16">
+                <img class="text-center align-items-center me-1" alt="" src="{% static 'plus.svg' %}" height="16" width="16">
                 <span>Создать объявление</span>
             </a>
                 <div class="d-flex flex-row">
@@ -79,19 +78,17 @@
         {% block content %}
         {% endblock %}
     </div>
+
     <div class="container">
-<footer class="py-3 my-4">
-    <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-        {% for option in menu %}
-            <li class="nav-item"><a href="{% url option.url_name %}" class="nav-link px-2 text-muted">{{ option.title }}</a></li>
-        {% endfor %}
-    </ul>
-    <p class="text-center"><a class="text-decoration-none" href="https://github.com/devShev">© 2022 	&lt;DevShev&gt;</a></p>
-    <p class="text-center text-muted">Simple pet-project</p>
-  </footer>
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                {% for option in menu %}
+                    <li class="nav-item"><a href="{% url option.url_name %}" class="nav-link px-2 text-muted">{{ option.title }}</a></li>
+                {% endfor %}
+            </ul>
+            <p class="text-center"><a class="text-decoration-none" href="https://github.com/devShev">© 2022&lt;DevShev&gt;</a></p>
+            <p class="text-center text-muted">Simple pet-project</p>
+        </footer>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-kjU+l4N0Yf4ZOJErLsIcvOU2qSb74wXpOhqTvwVx3OElZRweTnQ6d31fXEoRD1Jy" crossorigin="anonymous"></script>
 </body>
 </html>

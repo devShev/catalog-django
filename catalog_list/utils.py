@@ -10,6 +10,7 @@ menu_list = [
 
 
 class DataMixin:
+    """Loading menu items and product types, transferring the current menu item"""
     def get_user_context(self, get_types=True, get_menu=True, **kwargs):
         context = kwargs
 
