@@ -1,0 +1,11 @@
+{% extends 'catalog_list/base.html' %}
+
+{% block content %}
+
+    <h1>{{ profile }}</h1>
+    <h1>{{ profile.location }}</h1>
+    <h1>{{ profile.birth_date }}</h1>
+    <h1>{{ profile.get_absolute_url }}</h1>
+    <h1>{{ profile.registration_date }}</h1>
+
+{% endblock %}
