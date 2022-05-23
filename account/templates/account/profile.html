@@ -27,6 +27,11 @@
                 {% else %}
                 <p class="m-1">Телефон: не указан</p>
                 {% endif %}
+                {% if profile.telegram %}
+                <p class="m-1">Telegram: {{ profile.telegram }}</p>
+                {% else %}
+                <p class="m-1">Telegram: не указан</p>
+                {% endif %}
                 {% if user.pk == profile.user.pk %}
                 <a href="{{ profile.get_settings_url }}" class="m-1">Изменить</a>
                 {% endif %}

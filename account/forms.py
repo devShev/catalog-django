@@ -36,15 +36,16 @@ class UserEditForm(forms.ModelForm):
         ]
 
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
+# class DateInput(forms.DateInput):
+#     input_type = 'date'
 
 
 class ProfileEditForm(forms.ModelForm):
-    photo = forms.ImageField(label='Фото профиля', widget=forms.FileInput(attrs={'class': 'form-control'}))
-    location = forms.CharField(label='Населённый пункт', widget=forms.TextInput(attrs={'class': 'form-control col-lg-4 themed-grid-col'}))
-    birth_date = forms.DateField(label='Дата рождения', widget=DateInput(attrs={'class': 'form-control col-lg-4 themed-grid-col'}))
-    phone_number = forms.CharField(label='Номер телефона', widget=forms.TextInput(attrs={'class': 'form-control col-lg-4 themed-grid-col'}))
+    photo = forms.ImageField(required=False, label='Фото профиля', widget=forms.FileInput(attrs={'class': 'form-control'}))
+    location = forms.CharField(required=False, label='Населённый пункт', widget=forms.TextInput(attrs={'class': 'form-control col-lg-4 themed-grid-col'}))
+    birth_date = forms.DateField(required=False, label='Дата рождения', widget=forms.DateInput(attrs={'class': 'form-control col-lg-4 themed-grid-col'}))
+    phone_number = forms.CharField(required=False, label='Номер телефона', widget=forms.TextInput(attrs={'class': 'form-control col-lg-4 themed-grid-col'}))
+    telegram = forms.CharField(required=False, label='Telegram', widget=forms.TextInput(attrs={'class': 'form-control col-lg-4 themed-grid-col'}))
 
 
     class Meta:
@@ -54,4 +55,5 @@ class ProfileEditForm(forms.ModelForm):
             'location',
             'birth_date',
             'phone_number',
+            'telegram',
         ]

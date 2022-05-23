@@ -11,6 +11,7 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
     registration_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата регистрации')
     phone_number = PhoneNumberField(blank=True, verbose_name='Номер телефона')
+    telegram = models.CharField(max_length=50, null=True, blank=True, verbose_name='Телеграм')
 
     def __str__(self):
         return self.user.username

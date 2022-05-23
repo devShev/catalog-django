@@ -19,22 +19,21 @@
     <title>{{ title }}</title>
 </head>
 <body>
-    <header class="p-3 bg-dark text-white sticky-top">
-        <div class="container">
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <header class="sticky-top bg-white border-bottom py-3">
+          <div class="container d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 
             <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                 {% for option in menu %}
                     {% if cuurent_menu == option.url_name %}
-                        <li class="nav-link px-2 text-secondary">{{ option.title }}</li>
+                        <li><a href="{% url option.url_name %}" class="nav-link px-2 link-secondary">{{ option.title }}</a></li>
                     {% else %}
-                        <li><a href="{% url option.url_name %}" class="nav-link px-2 text-white">{{ option.title }}</a></li>
+                        <li><a href="{% url option.url_name %}" class="nav-link px-2 link-dark">{{ option.title }}</a></li>
                     {% endif %}
                 {% endfor %}
             </ul>
 
             <form action="{% url 'search' %}" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" method="get">
-              <input name="q" type="search" class="form-control form-control-dark text-white bg-dark" placeholder="Поиск..." aria-label="Search" required>
+              <input name="q" type="search" class="form-control text-dark bg-white" placeholder="Поиск..." aria-label="Search" required>
             </form>
 
             {% if not request.user.is_authenticated %}
@@ -44,8 +43,8 @@
             </button>
 
             <div class="text-end">
-              <a href="{% url 'login' %}" type="button" class="btn btn-outline-light me-2" role="button">Войти</a>
-              <a href="{% url 'register' %}" type="button" class="btn btn-warning" role="button">Регистрация</a>
+              <a href="{% url 'login' %}" type="button" class="btn btn-outline-primary me-2" role="button">Войти</a>
+              <a href="{% url 'register' %}" type="button" class="btn btn-primary" role="button">Регистрация</a>
             </div>
             {% else %}
             <a href="{% url 'create' %}" type="button" class="d-flex flex-row align-items-center btn btn-success me-3 btn-circle" role="button">
@@ -59,7 +58,7 @@
               {% if user.profile.photo %}
                 <img src="{{ user.profile.photo.url }}" alt="mdo" width="32" height="32" class="rounded-circle">
               {% else %}
-                <img src="{% static 'person-circle.svg' %}" alt="mdo" width="32" height="32" class="rounded-circle">
+                <img src="{% static 'person-circle.svg' %}" alt="mdo" width="25" height="25" class="rounded-circle">
               {% endif %}
           </a>
           <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2" style="">
@@ -99,9 +98,6 @@
 
             </div>
             {% endif %}
-
-          </div>
-        </div>
       </header>
     <div class="container">
         {% block content %}

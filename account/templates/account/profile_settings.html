@@ -8,7 +8,7 @@
         {% csrf_token %}
             {% for f in form %}
                 <div class="mb-4">
-                    {{ f.label }}
+                    <label>{{ f.label }}</label>
                     {{ f }}
                 </div>
             {% endfor %}
