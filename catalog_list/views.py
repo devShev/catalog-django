@@ -1,12 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.views import LoginView
-from django.views.generic import ListView, DetailView, CreateView, FormView, TemplateView
-from django.contrib.auth import logout, login
+from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from .forms import RegisterUserForm, LoginUserForm, CreateAdForm
+from .forms import CreateAdForm
 from .models import Ad, ItemType
 from .utils import DataMixin, NonLoginRequiredMixin
 
@@ -117,42 +115,3 @@ class Rules(DataMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         user_context = self.get_user_context(get_types=False, title='Правила площадки', cuurent_menu='rules')
         return dict(list(context.items()) + list(user_context.items()))
-
-
-class RegisterUser(NonLoginRequiredMixin, DataMixin, CreateView):
-    form_class = RegisterUserForm
-    template_name = 'catalog_list/register.html'
-    success_url = reverse_lazy('home')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        user_context = self.get_user_context(get_types=False, get_menu=False, title='Регистрация')
-
-        return dict(list(context.items()) + list(user_context.items()))
-
-    def form_valid(self, form):
-        user = form.save()
-        login(self.request, user)
-
-        return redirect('home')
-
-
-class LoginUser(NonLoginRequiredMixin, DataMixin, LoginView):
-    form_class = LoginUserForm
-    template_name = 'catalog_list/login.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        user_context = self.get_user_context(get_types=False, get_menu=False, title='Авторизация')
-
-        return dict(list(context.items()) + list(user_context.items()))
-
-    def get_success_url(self):
-        return reverse_lazy('home')
-
-
-def logout_user(request):
-    logout(request)
-    return redirect('home')

@@ -1,0 +1,46 @@
+{% extends 'catalog_list/base.html' %}
+
+{% block content %}
+    <div class="d-flex flex-column mt-4">
+        <div class="d-flex flex-row">
+            {% if profile.photo %}
+            <img src="{{ profile.photo.url }}" alt="mdo" width="150" height="150" class="rounded-circle">
+            {% endif %}
+            <h1 class="align-self-center ms-4">{{ profile }}</h1>
+        </div>
+        <hr class="mb-2">
+        <div class="d-flex">
+            <div class="d-flex flex-column p-3 fs-6 text me-5">
+                <p class="m-1">Дата регистрации: {{ profile.registration_date|date:"d.m.Y" }}</p>
+                {% if profile.location %}
+                <p class="m-1">Населённый пункт: {{ profile.location }}</p>
+                {% else %}
+                <p class="m-1">Населённый пункт: не указан</p>
+                {% endif %}
+                {% if profile.birth_date %}
+                <p class="m-1">Дата рождения: {{ profile.birth_date }}</p>
+                {% else %}
+                <p class="m-1">Дата рождения: не указана</p>
+                {% endif %}
+                {% if profile.phone_number %}
+                <p class="m-1">Телефон: {{ profile.phone_number }}</p>
+                {% else %}
+                <p class="m-1">Телефон: не указан</p>
+                {% endif %}
+                {% if user.pk == profile.user.pk %}
+                <a href="{{ profile.get_settings_url }}" class="m-1">Изменить</a>
+                {% endif %}
+            </div>
+            <div class="d-flex flex-column align-items-center flex-fill border-start p-3">
+                <h4 class="mb-3">Объявления пользователя</h4>
+                {% for ad in ads %}
+                    <a href="{{ ad.get_absolute_url }}" class="">{{ ad.title }}</a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+
+
+{% endblock %}

@@ -36,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',
     'catalog_list.apps.CatalogListConfig',
+    'account.apps.AccountConfig',
     'bootstrap5',
 ]
 
