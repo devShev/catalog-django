@@ -79,7 +79,7 @@ class SettingsProfile(DataMixin, UpdateView):
 
         if context['profile'].user.pk != self.request.user.pk:
             return HttpResponseForbidden()
-
+        print('OK!')
         user_context = self.get_user_context(get_types=False, get_menu=True, title='Изменение профиля')
         return dict(list(context.items()) + list(user_context.items()))
 

@@ -4,7 +4,7 @@
     <div class="d-flex flex-column mt-4">
         <div class="d-flex flex-row">
             {% if profile.photo %}
-            <img src="{{ profile.photo.url }}" alt="mdo" width="150" height="150" class="rounded-circle">
+            <img src="{{ profile.photo.url }}" alt="mdo" class="rounded-circle" style="width: 150px; height: 150px; image-rendering: optimizeQuality">
             {% endif %}
             <h1 class="align-self-center ms-4">{{ profile }}</h1>
         </div>
