@@ -1,41 +1,71 @@
 {% extends 'catalog_list/base.html' %}
 
 {% block content%}
-    <div class="row my-3">
+    <div class="row my-2">
         <div class="col-lg-8" id="main">
             {% for ad in ads %}
-                <div class="card mb-3">
-                  <div class="row m-3 g-0">
-                    <div class="col-md-4 d-flex align-content-center">
-                        <a href="{{ ad.get_absolute_url }}">
-                            {% if ad.photo %}
-                                <img src="{{ ad.photo.url }}" class="img-fluid rounded-start rounded" alt="{{ ad.title }}">
-                            {% else %}
-                                <img src="https://fukuda-asia.com/wp-content/uploads/2016/04/placeholder.jpg" alt="Фото отсутствует" class="img-fluid rounded-start rounded">
-                            {% endif %}
+                <div class="d-flex flex-row my-4 p-2">
+                    <a class="flex-shrink-0" href="{{ ad.get_absolute_url }}">
+                        {% if ad.photo %}
+                        <img class="img-fluid rounded-start rounded" src="{{ ad.photo.url }}" style="width: 150px; height: 150px">
+                        {% else %}
+                            <svg width="150" height="150" viewBox="0 0 104 90" xmlns="http://www.w3.org/2000/svg">
+                                <g id="Page-1" fill="none" fill-rule="evenodd">
+                                    <g id="" transform="translate(-452 -284)" fill="#869098">
+                                        <g id="noun_857900_cc" transform="translate(452 284)">
+                                            <path d="M9.01490909,89.0807273 C4.04181818,89.0807273 0,85.0341818 0,80.0658182 L0,22.6814545 C0,17.7130909 4.04654545,13.6712727 9.01490909,13.6712727 L20.0625455,13.6712727 C21.3436364,13.6712727 22.5018182,12.9621818 23.088,11.8229091 L26.6429091,4.89745455 C28.1934545,1.87672727 31.2661818,0 34.6603636,0 L69.1789091,0 C72.5730909,0 75.6458182,1.87672727 77.1963636,4.89745455 L80.7512727,11.8229091 C81.3374545,12.9621818 82.4956364,13.6712727 83.7767273,13.6712727 L94.8290909,13.6712727 C99.8021818,13.6712727 103.844,17.7130909 103.844,22.6814545 L103.844,80.0705455 C103.844,85.0389091 99.7974545,89.0807273 94.8290909,89.0807273 L9.01490909,89.0807273 Z M52.0945455,24.3763636 C38.3091377,24.3763636 27.0945455,35.5909559 27.0945455,49.3763636 C27.0945455,63.1617714 38.3091377,74.3763636 52.0945455,74.3763636 C65.8799532,74.3763636 77.0945455,63.1617714 77.0945455,49.3763636 C77.0945455,35.5909559 65.8799532,24.3763636 52.0945455,24.3763636 Z" id="Combined-Shape" fill-rule="nonzero"></path>
+                                        </g>
+                                    </g>
+                                </g>
+                            </svg>
+                        {% endif %}
+                    </a>
+                    <div class="d-flex flex-column flex-grow-1 border-bottom pb-2 pe-2 ms-3 me-5">
+                        <a class="fs-5 text link-dark text-decoration-none" href="{{ ad.get_absolute_url }}">
+                            {{ ad.title }}
                         </a>
-                    </div>
-                    <div class="col-md-8">
-                      <div class="card-body">
-                          <small class="card-subtitle text-muted">{{ ad.type }}</small>
-                        <h4 class="card-title"><a class="text-decoration-none text-dark" href="{{ ad.get_absolute_url }}">{{ ad.title }}</a></h4>
-                        <p class="card-text">
                             {% autoescape on %}
-                                {{ ad.content|linebreaks|truncatechars:100 }}
+                                {{ ad.content|linebreaks|truncatechars:50 }}
                             {% endautoescape %}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                    <div class="card-footer text-muted d-flex justify-content-between">
-                        <div class="text-start">
+                        <div class="d-flex align-items-center mt-auto">
                             <a class="text-reset" href="{{ ad.author.profile.get_absolute_url }}">{{ ad.author }}</a>
-                        </div>
-                        <div class="text-end">
-                            <span >{{ ad.publication_date|date:"d.m.Y" }}</span>
+                            <span class="ms-2"> - {{ ad.publication_date|date:"d.m.Y" }}</span>
+                            <a class="btn btn-primary ms-auto btn-sm" href="{{ ad.get_absolute_url }}" role="button">Смотреть &#62;</a>
                         </div>
                     </div>
                 </div>
+{#                <div class="card mb-3">#}
+{#                  <div class="row m-3 g-0">#}
+{#                    <div class="col-md-4 d-flex align-content-center">#}
+{#                        <a href="{{ ad.get_absolute_url }}">#}
+{#                            {% if ad.photo %}#}
+{#                                <img src="{{ ad.photo.url }}" class="img-fluid rounded-start rounded" alt="{{ ad.title }}">#}
+{#                            {% else %}#}
+{#                                <img src="https://fukuda-asia.com/wp-content/uploads/2016/04/placeholder.jpg" alt="Фото отсутствует" class="img-fluid rounded-start rounded">#}
+{#                            {% endif %}#}
+{#                        </a>#}
+{#                    </div>#}
+{#                    <div class="col-md-8">#}
+{#                      <div class="card-body">#}
+{#                          <small class="card-subtitle text-muted">{{ ad.type }}</small>#}
+{#                        <h4 class="card-title"><a class="text-decoration-none text-dark" href="{{ ad.get_absolute_url }}">{{ ad.title }}</a></h4>#}
+{#                        <p class="card-text">#}
+{#                            {% autoescape on %}#}
+{#                                {{ ad.content|linebreaks|truncatechars:100 }}#}
+{#                            {% endautoescape %}#}
+{#                        </p>#}
+{#                      </div>#}
+{#                    </div>#}
+{#                  </div>#}
+{#                    <div class="card-footer text-muted d-flex justify-content-between">#}
+{#                        <div class="text-start">#}
+{#                            <a class="text-reset" href="{{ ad.author.profile.get_absolute_url }}">{{ ad.author }}</a>#}
+{#                        </div>#}
+{#                        <div class="text-end">#}
+{#                            <span >{{ ad.publication_date|date:"d.m.Y" }}</span>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                </div>#}
             {% endfor %}
         </div>
         <div class="col-lg-4 p-3">
