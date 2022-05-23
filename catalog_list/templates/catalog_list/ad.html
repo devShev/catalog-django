@@ -4,7 +4,12 @@
     <div class="d-flex flex-column align-items-center mt-4 text-center">
 
         <!-- Заголовок -->
-        <h1 class="">{{ ad.title }}</h1>
+        <h1 class="">
+            {{ ad.title }}
+            {% if ad.is_sold %}
+                <span class="border border-danger align-top rounded-start rounded" style="font-size: 12px; color: red">Продано</span>
+            {% endif %}
+        </h1>
         <small class="text-muted mb-4">{{ ad.type }}</small>
         <!-- Фото (если нет - заглушка) -->
         {% if not ad.photo %}
@@ -31,6 +36,7 @@
 
         <!-- Автор -->
         <div class="align-self-end text-end">
+            <p>Цена: <strong>{{ ad.price }} {% if ad.currency == 'BYN' %} р. {% elif ad.currency == 'USD' %} $ {% elif ad.currency == 'EUR' %} 	€{% endif %}</strong></p>
             <p class="mb-1">Автор: <strong>{{ ad.author }}</strong></p>
             <p class="mt-1 text-muted">Дата публикации: {{ ad.publication_date|date:"d.m.Y" }}</p>
         </div>
