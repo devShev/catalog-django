@@ -21,8 +21,11 @@
                         {% endif %}
                     </a>
                     <div class="d-flex flex-column flex-grow-1 border-bottom pb-2 pe-2 ms-3 me-5">
-                        <a class="fs-5 text link-dark text-decoration-none" href="{{ ad.get_absolute_url }}">
+                        <a class="fs-5 text link-dark text-decoration-none align-self-start" href="{{ ad.get_absolute_url }}">
                             {{ ad.title }}
+                            {% if ad.is_sold %}
+                            <span class="border border-danger align-top rounded-start rounded" style="font-size: 12px; color: red">Продано</span>
+                            {% endif %}
                         </a>
                             {% autoescape on %}
                                 {{ ad.content|linebreaks|truncatechars:50 }}

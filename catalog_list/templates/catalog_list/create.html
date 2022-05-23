@@ -29,9 +29,23 @@
         {% endif %}
 
         {% for f in form %}
+            {% if forloop.counter == 5 %}
+                <div class="d-flex">
+                <p class="d-flex"><label class="mt-2 form-label d-flex flex-column justify-content-center me-2" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
+                {% if f.errors %}
+                    <div class="alert alert-danger align-self-start text-break" role="alert">{{ f.errors }}</div>
+                {% endif %}
+            {% elif forloop.counter == 6 %}
+                <p class="d-flex ms-1">{{ f }}</p>
+                {% if f.errors %}
+                    <div class="alert alert-danger align-self-start text-break" role="alert">{{ f.errors }}</div>
+                {% endif %}
+                </div>
+            {% else %}
             <p class="d-flex flex-column align-items-start"><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }}</p>
             {% if f.errors %}
                 <div class="alert alert-danger align-self-start text-break" role="alert">{{ f.errors }}</div>
+            {% endif %}
             {% endif %}
         {% endfor %}
 

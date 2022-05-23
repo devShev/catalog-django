@@ -36,10 +36,6 @@ class UserEditForm(forms.ModelForm):
         ]
 
 
-# class DateInput(forms.DateInput):
-#     input_type = 'date'
-
-
 class ProfileEditForm(forms.ModelForm):
     photo = forms.ImageField(required=False, label='Фото профиля', widget=forms.FileInput(attrs={'class': 'form-control'}))
     location = forms.CharField(required=False, label='Населённый пункт', widget=forms.TextInput(attrs={'class': 'form-control col-lg-4 themed-grid-col'}))
