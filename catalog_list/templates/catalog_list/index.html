@@ -29,7 +29,7 @@
                   </div>
                     <div class="card-footer text-muted d-flex justify-content-between">
                         <div class="text-start">
-                            <a class="text-reset" href="{{ ad.author.get_absolute_url }}">{{ ad.author }}</a>
+                            <a class="text-reset" href="{{ ad.author.profile.get_absolute_url }}">{{ ad.author }}</a>
                         </div>
                         <div class="text-end">
                             <span >{{ ad.publication_date|date:"d.m.Y" }}</span>
